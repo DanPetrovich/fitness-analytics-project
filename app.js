@@ -56,7 +56,7 @@ function renderLegend(){
 function renderWeekly(){
   const root=$("#weeklyChart"), data=filtered("week"), byWeek=group(data,"week"), weeks=Object.keys(byWeek).map(Number).sort((a,b)=>a-b);
   if(!weeks.length){root.innerHTML='<div class="empty">Нет данных для этого фильтра</div>';return}
-  const W=1040,H=410,m={l:58,r:24,t:20,b:52},iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const W=1040,H=620,m={l:58,r:24,t:28,b:58},iw=W-m.l-m.r,ih=H-m.t-m.b;
   const totals=weeks.map(w=>sum(byWeek[w],d=>d.views)), max=Math.ceil(Math.max(...totals)/100)*100;
   const x=w=>m.l+(weeks.indexOf(w)+.5)*iw/weeks.length, bw=Math.min(64,iw/weeks.length*.58), y=v=>m.t+ih-v/max*ih;
   const svg=svgEl("svg",{viewBox:`0 0 ${W} ${H}`,"aria-hidden":"true"});
@@ -95,7 +95,7 @@ function renderConclusions(){
     [`Проверить ${risky.map(d=>d.code).join(", ")}`,`Эти видео оказались в нижней части распределения по просмотрам и глубине. Их стоит пересмотреть первыми.`]
   ];$("#conclusions").innerHTML=items.map(([b,p])=>`<article class="conclusion"><b>${b}</b><p>${p}</p></article>`).join("");
 }
-function render(){renderControls();renderKpis();renderLegend();renderWeekly();renderTypes();renderTrainers();renderScatter();renderCohorts();renderConclusions()}
+function render(){renderControls();renderKpis();renderLegend();renderWeekly();renderTrainers();renderScatter();renderCohorts();renderConclusions()}
 document.querySelectorAll("[data-period]").forEach(b=>b.onclick=()=>{state.period=b.dataset.period;state.week=null;state.workout=null;render()});
 $("#resetFilters").onclick=()=>{Object.assign(state,{period:"all",week:null,type:null,trainer:null,workout:null});render()};
 render();
