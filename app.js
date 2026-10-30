@@ -87,15 +87,7 @@ function renderCohorts(){
   const root=$("#cohortChart"),[lo,hi]=state.period==="1-5"?[1,5]:state.period==="6-10"?[6,10]:[1,10];let rows=DATA.cohortType.filter(d=>d.week>=lo&&d.week<=hi).filter(d=>!state.week||d.week===state.week).filter(d=>!state.type||d.type===state.type).filter(d=>!state.trainer||d.trainer===state.trainer);
   const cohorts=["Низкая","Средняя","Высокая"],g=group(rows,"cohort");root.innerHTML=cohorts.map(c=>{const tg=group(g[c]||[],"type"),total=sum(g[c]||[],d=>d.views);const spans=TYPES.map(t=>{const v=sum(tg[t]||[],d=>d.views);return v?`<span data-type="${t}" style="width:${v/total*100}%;background:${COLORS[t]}" title="${t}: ${pct(v/total)}"></span>`:""}).join("");return `<div class="cohort-row"><div class="cohort-label"><span>${c} активность</span><span>${fmt.format(total)} пр.</span></div><div class="stack">${spans}</div><div class="stack-legend">${DATA.meta.cohortSizes[c]} зрителей</div></div>`}).join("");root.querySelectorAll("[data-type]").forEach(s=>s.onclick=()=>toggle("type",s.dataset.type));$("#cohortMethod").textContent=`Группы по числу тренировок пользователя: низкая активность — до ${DATA.meta.cohortCuts[0]}, средняя — ${DATA.meta.cohortCuts[0]+1}–${DATA.meta.cohortCuts[1]}, высокая — от ${DATA.meta.cohortCuts[1]+1}.`;
 }
-function renderConclusions(){
-  const all=DATA.workouts,byType=Object.entries(group(all,"type")).map(([k,a])=>({k,v:sum(a,d=>d.views)})).sort((a,b)=>b.v-a.v);const byTrainer=Object.entries(group(all,"trainer")).map(([k,a])=>({k,avg:sum(a,d=>d.views)/a.length,depth:weighted(a,d=>d.depth,d=>d.views)})).sort((a,b)=>b.avg-a.avg);const risky=[...all].sort((a,b)=>(a.views/100+a.depth)-(b.views/100+b.depth)).slice(0,3);
-  const items=[
-    [`Удержать аудиторию после 5-й недели`,`Падение просмотров идёт при высокой глубине. Проблема скорее в возврате зрителей, а не в досмотрах.`],
-    [`Опираться на «${byType[0].k}»`,`Этот тип даёт больше всего просмотров: ${fmt.format(byType[0].v)}. Его можно использовать как регулярный «якорь» недели.`],
-    [`Проверить ${risky.map(d=>d.code).join(", ")}`,`Эти видео оказались в нижней части распределения по просмотрам и глубине. Их стоит пересмотреть первыми.`]
-  ];$("#conclusions").innerHTML=items.map(([b,p])=>`<article class="conclusion"><b>${b}</b><p>${p}</p></article>`).join("");
-}
-function render(){renderControls();renderKpis();renderLegend();renderWeekly();renderTrainers();renderScatter();renderCohorts();renderConclusions()}
+function render(){renderControls();renderKpis();renderLegend();renderWeekly();renderTrainers();renderScatter();renderCohorts()}
 document.querySelectorAll("[data-period]").forEach(b=>b.onclick=()=>{state.period=b.dataset.period;state.week=null;state.workout=null;render()});
 $("#resetFilters").onclick=()=>{Object.assign(state,{period:"all",week:null,type:null,trainer:null,workout:null});render()};
 render();
