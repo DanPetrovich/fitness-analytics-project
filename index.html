@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Интерактивное исследование вовлечённости в 10-недельной фитнес-программе">
+  <title>Вовлечённость в фитнес-программе</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <p class="eyebrow">Исследование онлайн-тренировок</p>
+        <h1>Вовлечённость снижается,<br><span>но качество просмотра остаётся</span></h1>
+        <p class="lead">10 недель, 80 тренировок и 3&nbsp;755 просмотров. Дашборд показывает, где теряется аудитория, какие форматы удерживают интерес и что стоит перезаписать.</p>
+      </div>
+      <aside class="hero-note">
+        <span class="note-index">01</span>
+        <p>К 10-й неделе просмотров на треть меньше, чем на 1-й. При этом глубина в большинстве недель близка к 100%.</p>
+      </aside>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="controls" aria-label="Фильтры дашборда">
+      <div class="control-group">
+        <span class="control-label">Период</span>
+        <div class="segmented" id="periodControls">
+          <button class="active" data-period="all">Все 10 недель</button>
+          <button data-period="1-5">1–5</button>
+          <button data-period="6-10">6–10</button>
+        </div>
+      </div>
+      <div class="selection" id="selectionText">Все данные</div>
+      <button class="reset" id="resetFilters" disabled>Сбросить фильтры</button>
+    </section>
+
+    <section class="kpis" id="kpis" aria-label="Ключевые показатели"></section>
+
+    <section class="card main-card">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">02 / Динамика</p>
+          <h2>Как менялась вовлечённость</h2>
+          <p>Каждый сегмент столбца — одна тренировка. Цвет показывает тип, линия — суммарные просмотры.</p>
+        </div>
+        <div class="legend" id="typeLegend"></div>
+      </div>
+      <div class="chart large" id="weeklyChart" role="img" aria-label="Просмотры по неделям и типам тренировок"></div>
+      <div class="axis-note"><span>Ось X: неделя</span><span>Ось Y: количество просмотров</span></div>
+    </section>
+
+    <div class="grid two-col">
+      <section class="card">
+        <div class="section-head compact">
+          <div><p class="section-kicker">03 / Форматы</p><h2>Что смотрят чаще</h2></div>
+        </div>
+        <div class="chart" id="typeChart"></div>
+      </section>
+      <section class="card">
+        <div class="section-head compact">
+          <div><p class="section-kicker">04 / Тренеры</p><h2>Кто сильнее удерживает аудиторию</h2></div>
+        </div>
+        <div class="chart" id="trainerChart"></div>
+      </section>
+    </div>
+
+    <div class="grid two-col">
+      <section class="card">
+        <div class="section-head compact">
+          <div><p class="section-kicker">05 / Качество</p><h2>Какие тренировки стоит перезаписать</h2><p>Ниже и левее — хуже: мало просмотров и низкая глубина.</p></div>
+        </div>
+        <div class="chart" id="scatterChart"></div>
+        <div class="axis-note"><span>Ось X: средняя глубина просмотра</span><span>Ось Y: просмотры</span></div>
+      </section>
+      <section class="card">
+        <div class="section-head compact">
+          <div><p class="section-kicker">06 / Сегменты</p><h2>Что выбирают разные по вовлечённости зрители</h2><p>Доля типов тренировок внутри каждой когорты.</p></div>
+        </div>
+        <div class="chart" id="cohortChart"></div>
+        <p class="method" id="cohortMethod"></p>
+      </section>
+    </div>
+
+    <section class="conclusions">
+      <p class="section-kicker">07 / Выводы</p>
+      <h2>Что стоит сделать</h2>
+      <div class="conclusion-grid" id="conclusions"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <div><strong>Проект по визуализации</strong><br>Вариант 2</div>
+      <div>Источник: учебный датасет «Онлайн-тренировки, 10 недель».<br>Агрегированные данные, без ID пользователей.</div>
+    </div>
+  </footer>
+  <div class="tooltip" id="tooltip" role="status"></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
