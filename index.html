@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261030-4">
+  <link rel="stylesheet" href="styles.css?v=20261031-1">
 </head>
 <body>
   <header class="hero">
@@ -58,7 +58,12 @@
       <div class="side-stack">
         <section class="card side-card">
         <div class="section-head compact">
-          <div><p class="section-kicker">03 / Тренеры</p><h2>В каких форматах силён каждый тренер</h2><p>В ячейке: просмотры на видео, глубина и оценка.</p></div>
+          <div><p class="section-kicker">03 / Тренеры</p><h2>Тренеры × форматы</h2><p id="trainerMetricNote">Средняя пользовательская оценка. Чем темнее ячейка, тем выше значение.</p></div>
+        </div>
+        <div class="metric-switch" aria-label="Показатель тепловой карты">
+          <button data-trainer-metric="views">Просмотры</button>
+          <button data-trainer-metric="depth">Глубина</button>
+          <button class="active" data-trainer-metric="rating">Оценка</button>
         </div>
         <div class="chart" id="trainerChart"></div>
         </section>
@@ -89,6 +94,6 @@
   </footer>
   <div class="tooltip" id="tooltip" role="status"></div>
   <script src="data.js?v=20261030-2"></script>
-  <script src="app.js?v=20261031-3"></script>
+  <script src="app.js?v=20261031-4"></script>
 </body>
 </html>
